@@ -187,7 +187,7 @@ contract sorcerersWrath is ERC1155, Ownable, ERC1155Supply {
         require(!isPlayer(msg.sender), "Player already registered"); // Require that player is not already registered
 
         uint256 _id = players.length;
-        players.push(Player(msg.sender, _name, 10, 25, false)); // Adds player to players array
+        players.push(Player(msg.sender, _name, 10, 25, false)); // Adds player to players array (10 = mana, 25 = health)
         playerInfo[msg.sender] = _id; // Creates player info mapping
 
         createRandomGameToken(_gameTokenName);

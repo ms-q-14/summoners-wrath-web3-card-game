@@ -17,26 +17,32 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [provider, setProvider] = useState("");
   const [contract, setContract] = useState("");
+  const [showAlert, setShowAlert] = useState({
+    status: "false",
+    type: "info",
+    message: "",
+  });
 
   //Setting the wallet address to the state
   const updateCurrentWalletAddress = async () => {
-    const accounts = await window.ethereum.request({
+    const accounts = await window?.ethereum?.request({
       method: "eth_requestAccounts",
     });
+
     if (accounts) setWalletAddress(accounts[0]);
   };
 
   useEffect(() => {
     updateCurrentWalletAddress();
 
-    window.ethereum.on("accountsChanged", updateCurrentWalletAddress);
+    window?.ethereum?.on("accountsChanged", updateCurrentWalletAddress);
   }, []);
 
-  //Setting the smart contract and provider to the state
+  //* Set the smart contract and provider to the state
   useEffect(() => {
     const setSmartContractAndProvider = async () => {
-      const web3modal = new Web3Modal();
-      const connection = await web3modal.connect();
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
       const newProvider = new ethers.providers.Web3Provider(connection);
       const signer = newProvider.getSigner();
       const newContract = new ethers.Contract(ADDRESS, ABI, signer);
@@ -48,11 +54,23 @@ export const GlobalContextProvider = ({ children }) => {
     setSmartContractAndProvider();
   }, []);
 
+  useEffect(() => {
+    if (showAlert?.status) {
+      const timer = setTimeout(() => {
+        setShowAlert({ status: false, type: "info", message: "" });
+      }, [5000]);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
   return (
     <GlobalContext.Provider
       value={{
         contract,
         walletAddress,
+        showAlert,
+        setShowAlert,
       }}
     >
       {children}
