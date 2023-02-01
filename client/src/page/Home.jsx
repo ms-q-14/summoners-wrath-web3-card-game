@@ -9,7 +9,6 @@ const Home = () => {
 
   const handleClick = async () => {
     try {
-      console.log({ contract });
       const playerExists = await contract.isPlayer(walletAddress);
 
       if (!playerExists) {
@@ -22,7 +21,11 @@ const Home = () => {
         });
       }
     } catch (error) {
-      alert(error);
+      setShowAlert({
+        status: "true",
+        type: "error",
+        message: error.message || "Something went wrong!",
+      });
     }
   };
 
