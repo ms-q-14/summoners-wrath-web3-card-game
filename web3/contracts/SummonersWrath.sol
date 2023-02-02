@@ -6,15 +6,15 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
-/// @title sorcerersWrath
-/// @notice This contract handles the token management and battle logic for the sorcerersWrath game
+/// @title AVAXGods
+/// @notice This contract handles the token management and battle logic for the AVAXGods game
 /// @notice Version 1.0.0
 /// @author Ava-Labs
 /// @author Julian Martinez
 /// @author Gabriel Cardona
 /// @author Raj Ranjan
 
-contract sorcerersWrath is ERC1155, Ownable, ERC1155Supply {
+contract SummonersWrath is ERC1155, Ownable, ERC1155Supply {
     string public baseURI; // baseURI where token metadata is stored
     uint256 public totalSupply; // Total number of tokens minted
     uint256 public constant DEVIL = 0;
@@ -187,7 +187,7 @@ contract sorcerersWrath is ERC1155, Ownable, ERC1155Supply {
         require(!isPlayer(msg.sender), "Player already registered"); // Require that player is not already registered
 
         uint256 _id = players.length;
-        players.push(Player(msg.sender, _name, 10, 25, false)); // Adds player to players array (10 = mana, 25 = health)
+        players.push(Player(msg.sender, _name, 10, 25, false)); // Adds player to players array
         playerInfo[msg.sender] = _id; // Creates player info mapping
 
         createRandomGameToken(_gameTokenName);

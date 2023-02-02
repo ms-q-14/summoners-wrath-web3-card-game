@@ -15,15 +15,15 @@ const Home = () => {
         await contract.registerPlayer(playerName, playerName);
 
         setShowAlert({
-          status: "true",
+          status: true,
           type: "info",
           message: `${playerName} has appeared in the rift!`,
         });
       }
     } catch (error) {
       setShowAlert({
-        status: "true",
-        type: "error",
+        status: true,
+        type: "failure",
         message: error.message || "Something went wrong!",
       });
     }

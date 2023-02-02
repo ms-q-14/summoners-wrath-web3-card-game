@@ -15,11 +15,11 @@ async function main() {
 
   console.log(`Deploying a smart contract...`);
 
-  const sorcerersWrath = (await deploy("sorcerersWrath", _metadataUri)).connect(
+  const SummonersWrath = (await deploy("SummonersWrath", _metadataUri)).connect(
     admin
   );
 
-  console.log({ sorcerersWrath: sorcerersWrath.address });
+  console.log({ SummonersWrath: SummonersWrath.address });
 }
 
 main()
