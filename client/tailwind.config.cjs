@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         siteblack: "#131519",
         siteDimBlack: "#191d23",
-        siteViolet: "#c60d10",
+        siteRed: "#c60d10",
         siteWhite: "#9eacc7",
       },
       backgroundImage: {

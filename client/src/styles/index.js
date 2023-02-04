@@ -3,7 +3,7 @@ const styles = {
   headText: "font-rajdhani font-bold text-white sm:text-6xl text-4xl",
   normalText: "font-rajdhani font-normal text-[24px] text-siteWhite",
   footerText: "font-rajdhani font-medium text-base text-white",
-  infoText: "font-rajdhani font-medium text-lg text-siteViolet cursor-pointer",
+  infoText: "font-rajdhani font-medium text-lg text-siteRed cursor-pointer",
 
   // glassmorphism
   glassEffect: "bg-white backdrop-filter backdrop-blur-lg bg-opacity-10",
@@ -57,12 +57,12 @@ const styles = {
   cardText: "font-rajdhani text-[26px] font-bold text-white",
 
   // custom button component
-  btn: "px-4 py-2 rounded-lg bg-siteViolet w-fit text-white font-rajdhani font-bold",
+  btn: "px-4 py-2 rounded-lg bg-siteRed w-fit text-white font-rajdhani font-bold",
 
   // custom input component
   label: "font-rajdhani font-semibold text-2xl text-white mb-3",
   input:
-    "bg-siteDimBlack text-white outline-none focus:outline-siteViolet p-4 rounded-md sm:max-w-[50%] max-w-full",
+    "bg-siteDimBlack text-white outline-none focus:outline-siteRed p-4 rounded-md sm:max-w-[50%] max-w-full",
 
   // gameload component
   gameLoadContainer: "absolute inset-0 z-10 w-full h-screen gameload flex-col",
@@ -72,17 +72,17 @@ const styles = {
   gameLoadPlayerImg:
     "md:w-36 w-24 md:h-36 h-24 object-contain rounded-full drop-shadow-lg",
   gameLoadPlayerText: "mt-3 font-rajdhani text-white md:text-xl text-base",
-  gameLoadVS: "font-rajdhani font-extrabold text-siteViolet text-7xl mx-16",
+  gameLoadVS: "font-rajdhani font-extrabold text-siteRed text-7xl mx-16",
 
   // gameInfo component
   gameInfoIconBox: "absolute right-2 top-1/2",
-  gameInfoIcon: "bg-siteViolet w-10 h-10 rounded-md cursor-pointer",
+  gameInfoIcon: "bg-siteRed w-10 h-10 rounded-md cursor-pointer",
   gameInfoIconImg: "w-3/5 h-3/5 object-contain invert",
   gameInfoSidebar:
     "absolute p-6 right-0 top-0 h-screen rounded-md flex-col transition-all ease-in duration-300",
   gameInfoSidebarCloseBox: "flex justify-end mb-8",
   gameInfoSidebarClose:
-    "w-10 h-10 rounded-md bg-siteViolet text-white font-rajdhani font-extrabold text-xl cursor-pointer",
+    "w-10 h-10 rounded-md bg-siteRed text-white font-rajdhani font-extrabold text-xl cursor-pointer",
   gameInfoHeading: "font-rajdhani font-bold text-white text-3xl",
   gameInfoText: "font-rajdhani font-medium text-white text-xl mb-2",
 

@@ -39,12 +39,11 @@ const PlayerInfo = ({ player, playerIcon, mt }) => {
 
       <div
         data-for={`Mana-${mt ? "1" : "2"}`}
-        data-tip="Mana"
+        data-tip={`Mana ${(<img src={mana} />)}`}
         className={`${styles.flexCenter} ${styles.playerMana} ${styles.glassEffect}`}
       >
         {player.mana || 0}
       </div>
-      <img src={mana} className="w-[60px]" />
 
       <ReactToolTip
         id={`Player-${mt ? "1" : "2"}`}
@@ -60,6 +59,17 @@ const PlayerInfo = ({ player, playerIcon, mt }) => {
           {player?.playerAddress?.slice(0, 10)}
         </p>
       </ReactToolTip>
+
+      <ReactToolTip
+        id={`Health-${mt ? "1" : "2"}`}
+        effect="solid"
+        backgroundColor="#c60d10"
+      />
+      <ReactToolTip
+        id={`Mana-${mt ? "1" : "2"}`}
+        effect="solid"
+        backgroundColor="#c60d10"
+      />
     </div>
   );
 };
