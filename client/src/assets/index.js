@@ -47,6 +47,7 @@ import attack from "./attack.png";
 import defense from "./defense.png";
 import alertIcon from "./alertIcon.svg";
 import AlertIcon from "./AlertIcon.jsx";
+import mana from "./mana.png";
 
 // players
 import player01 from "./player01.png";
@@ -92,6 +93,7 @@ export const allCards = [
 
 export {
   saiman,
+  mana,
   astral,
   eoaalien,
   panight,
