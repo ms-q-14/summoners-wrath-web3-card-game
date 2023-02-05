@@ -37,7 +37,7 @@ const JoinBattle = () => {
         message: `Joining ${battleName}`,
       });
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
 

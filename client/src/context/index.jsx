@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ABI, ADDRESS } from "../contract";
 import { createEventListeners } from "./createEventListeners";
 import { getContractAddress } from "ethers/lib/utils";
+import { GetParams } from "../utils/onboard";
 
 const GlobalContext = createContext();
 
@@ -32,6 +33,12 @@ export const GlobalContextProvider = ({ children }) => {
   });
   const [updateGameData, setUpdateGameData] = useState(0);
   const [battleGround, setBattleGround] = useState("bg-astral");
+  const [step, setStep] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const player1Ref = useRef();
+  const player2Ref = useRef();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +49,19 @@ export const GlobalContextProvider = ({ children }) => {
     } else {
       localStorage.setItem("battleground", battleGround);
     }
+  }, []);
+
+  useEffect(() => {
+    const resetParams = async () => {
+      const currentStep = await GetParams();
+
+      setStep(currentStep.step);
+    };
+
+    resetParams();
+
+    window?.ethereum?.on("chainChanged", () => resetParams());
+    window?.ethereum?.on("accountsChanged", () => resetParams());
   }, []);
 
   //Setting the wallet address to the state
@@ -78,7 +98,7 @@ export const GlobalContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (contract) {
+    if (step !== -1 && contract) {
       createEventListeners({
         navigate,
         contract,
@@ -86,9 +106,11 @@ export const GlobalContextProvider = ({ children }) => {
         walletAddress,
         setShowAlert,
         setUpdateGameData,
+        player1Ref,
+        player2Ref,
       });
     }
-  }, []);
+  }, [contract, step]);
 
   useEffect(() => {
     if (showAlert?.status) {
@@ -99,6 +121,23 @@ export const GlobalContextProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [showAlert]);
+
+  //Handles the error messages
+
+  useEffect(() => {
+    if (errorMessage) {
+      const parsedErrorMessage = errorMessage?.reason
+        ?.slice("execution reverted: ".length)
+        .slice(0, -1);
+      if (parsedErrorMessage) {
+        setShowAlert({
+          status: true,
+          type: "failure",
+          message: parsedErrorMessage,
+        });
+      }
+    }
+  }, [errorMessage]);
 
   //Sets Game data to state
 
@@ -139,6 +178,10 @@ export const GlobalContextProvider = ({ children }) => {
         gameData,
         battleGround,
         setBattleGround,
+        errorMessage,
+        setErrorMessage,
+        player1Ref,
+        player2Ref,
       }}
     >
       {children}
