@@ -87,12 +87,14 @@ const Battle = () => {
 
     //Making Battle move
     try {
-      await contract.attackOrDefendChoice(choice, battleName);
+      await contract.attackOrDefendChoice(choice, battleName, {
+        gasLimit: 200000,
+      });
 
       setShowAlert({
         status: true,
         type: "info",
-        message: `Summon is ${choice === 1 ? "attacking" : "defending"}`,
+        message: `Summon is preparing to ${choice === 1 ? "attack" : "defend"}`,
       });
     } catch (error) {
       setErrorMessage(error);

@@ -6,11 +6,28 @@ import { useGlobalContext } from "../context";
 import { alertIcon, gameRules, summonerLogo } from "../assets";
 
 const GameInfo = () => {
-  const { contract, gameData, setShowAlert } = useGlobalContext();
+  const { contract, gameData, setShowAlert, setErrorMessage } =
+    useGlobalContext();
   const [toggleSideBar, setToggleSideBar] = useState(false);
   const navigate = useNavigate();
 
-  const handleBattleExit = async () => {};
+  const handleBattleExit = async () => {
+    const battleName = gameData.activeBattle.name;
+
+    try {
+      await contract.quitBattle(battleName, {
+        gasLimit: 200000,
+      });
+
+      setShowAlert({
+        status: true,
+        type: "message",
+        message: `You are fleeing ${battleName}`,
+      });
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  };
 
   return (
     <>

@@ -48,6 +48,21 @@ export const createEventListeners = ({
     }
   });
 
+  const NewGameTokenEventFilter = contract.filters.NewGameToken();
+  AddNewEvent(NewGameTokenEventFilter, provider, ({ args }) => {
+    console.log("New game token created!", args.owner);
+
+    if (walletAddress.toLowerCase() === args.owner.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "success",
+        message: "Game token has been successfully created",
+      });
+
+      navigate("/create-battle");
+    }
+  });
+
   const NewBattleEventFilter = contract.filters.NewBattle();
   AddNewEvent(NewBattleEventFilter, provider, ({ args }) => {
     console.log("New battle started!", args, walletAddress);
@@ -83,5 +98,26 @@ export const createEventListeners = ({
       }
     }
     setUpdateGameData((prevUpdateGameData) => prevUpdateGameData + 1);
+  });
+
+  const BattleEndedEventFilter = contract.filters.BattleEnded();
+  AddNewEvent(BattleEndedEventFilter, provider, ({ args }) => {
+    console.log("Battle ended!", args, walletAddress);
+
+    if (walletAddress.toLowerCase() === args.winner.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "success",
+        message: "You won the battle!",
+      });
+    } else if (walletAddress.toLowerCase() === args.loser.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "failure",
+        message: "You lost the battle!",
+      });
+    }
+
+    navigate("/create-battle");
   });
 };

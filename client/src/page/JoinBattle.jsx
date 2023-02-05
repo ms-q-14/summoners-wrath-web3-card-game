@@ -17,6 +17,11 @@ const JoinBattle = () => {
   } = useGlobalContext();
 
   useEffect(() => {
+    if (gameData.activeBattle)
+      navigate(`/battle/${gameData.activeBattle.name}`);
+  }, [gameData]);
+
+  useEffect(() => {
     if (
       gameData &&
       gameData.activeBattle &&
@@ -29,12 +34,14 @@ const JoinBattle = () => {
     setBattleName(battleName);
 
     try {
-      await contract.joinBattle(battleName);
+      await contract.joinBattle(battleName, {
+        gasLimit: 200000,
+      });
 
       setShowAlert({
         status: true,
         type: "success",
-        message: `Joining ${battleName}`,
+        message: `Teleporting to ${battleName}`,
       });
     } catch (error) {
       setErrorMessage(error);
